@@ -1,0 +1,25 @@
+
+# version: '3'
+services:
+  backend:
+    container_name: backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - database
+    # environment:
+    #   ConnectionStrings__DefaultConnection: "Host=db;Database=postgres;Username=postgres;Password=postgres"
+  database:
+    build:
+      context: database
+      dockerfile: Dockerfile
+    ports:
+      - "1433:1433"
+
+volumes:
+  pgdata: {}
+
+
