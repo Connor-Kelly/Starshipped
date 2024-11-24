@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Humanizer;
 
 namespace Swapi.Models
 {
@@ -29,7 +30,19 @@ namespace Swapi.Models
         //   "url": "https://swapi.dev/api/starships/17/"
         // }
         [Key]
-        public int Id { get; set; }
+        public int Id
+        {
+            get; set;
+        }
+        public int SwapiID
+        {
+            get
+            {
+                return int.Parse(URL.Split("/").ElementAt(URL.Split("/").Length - 2));
+            }
+            set { }
+        }
+
         public string URL { get; set; }
         public string? name { get; set; }
         public string? Model { get; set; }
