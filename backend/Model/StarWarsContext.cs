@@ -35,6 +35,8 @@ public class StarWarsContext : DbContext
             }
 
             HttpClient httpClient = new() { };
+
+            // do this sync so that the context doesn't get disposed before it can seed.
             var task = Task.Run(() => httpClient.GetFromJsonAsync<StarshipPage>(
                         "https://swapi.dev/api/starships"));
 

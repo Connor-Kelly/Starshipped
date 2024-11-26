@@ -20,71 +20,51 @@ builder.Services.AddSwaggerGen();
 //     app.UseSwagger();
 //     app.UseSwaggerUI();
 // }
+
+builder.Services.AddCors();
+
 builder.Services.AddDbContext<StarWarsContext>(options =>
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-        .UseSeeding((db, _) =>
-        {
-            HttpClient httpClient = new() { };
-
-            if (db.Set<Starship>().Count() != 0) {
-                return;
-            }
-
-            var task = Task.Run(() => httpClient.GetFromJsonAsync<StarshipPage>(
-                        "https://swapi.dev/api/starships"));
-
-            // StarshipsPage ? starshipsPage = await httpClient.GetFromJsonAsync<StarshipsPage>(
-            // "https://swapi.dev/api/starships");
-            task.Wait();
-
-            StarshipPage starshipsPage = task.Result;
-
-            if (starshipsPage?.results != null)
-            {
-                db.AddRange(starshipsPage.results);
-                db.SaveChanges();
-            }
-        })
         .EnableSensitiveDataLogging();
-        // options.Database.EnsureCreated();
     }
 
     );
 
-
 var app = builder.Build();
+
+// ensure that the db is created and seeded 
+using (var scope =
+  app.Services.CreateScope())
+    using (var context = scope.ServiceProvider.GetService<StarWarsContext>())
+        context?.Database.EnsureCreated();
 
 app.UseHttpsRedirection();
 
+// leave the CORS wide open, in prod this would need to change
+app.UseCors(builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
-using (var scope =
-  app.Services.CreateScope())
-using (var context = scope.ServiceProvider.GetService<StarWarsContext>())
-    context?.Database.EnsureCreated();
-// var summaries = new[]
-// {
-//     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-// };
+app.MapGet("/", (StarWarsContext db) =>
+        db.Starships.ToList()
+    )
+    .WithName("GetStarShips").WithOpenApi();
 
-// app.MapGet("/weatherforecast", () =>
-// {
-//     var forecast =  Enumerable.Range(1, 5).Select(index =>
-//         new WeatherForecast
-//         (
-//             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-//             Random.Shared.Next(-20, 55),
-//             summaries[Random.Shared.Next(summaries.Length)]
-//         ))
-//         .ToArray();
-//     return forecast;
-// })
-// .WithName("GetWeatherForecast")
-// .WithOpenApi();
+app.MapGet("/{id}", (int id, StarWarsContext db) =>
+{
+    Starship? starship = db.Starships.Find(id);
+
+    return starship;
+});
+
+app.MapGet("/random", (StarWarsContext db) =>
+        db.Starships.OrderBy((ss) => Guid.NewGuid()).First()
+    )
+    .WithName("GetRandomStarShip").WithOpenApi();
+
+
 
 app.Run();
 
-// record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-// {
-//     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-// }
