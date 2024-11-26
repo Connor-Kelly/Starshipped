@@ -15,8 +15,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/out ./
 
-# Expose port 5000
-EXPOSE 5000
+# Expose port 5119
+EXPOSE 5119
 
 # Run the application
-ENTRYPOINT ["dotnet", "starship.dll"]
+ENTRYPOINT ["dotnet", "backend.dll"]
