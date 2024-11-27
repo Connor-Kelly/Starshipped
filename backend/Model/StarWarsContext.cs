@@ -25,7 +25,7 @@ public class StarWarsContext : DbContext
     // special "local" folder for your platform.
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        options.UseSqlServer("Server=localhost,1433;Database=starwars;User Id=sa;Password=GoEngineerProject123!;Trusted_Connection=False;Encrypt=False;")
+        options.UseSqlServer("Server=database,1433;Database=starwars;User Id=sa;Password=GoEngineerProject123!;Trusted_Connection=False;Encrypt=False;")
         .UseSeeding((db, _) =>
         {
 

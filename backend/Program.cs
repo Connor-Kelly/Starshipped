@@ -50,6 +50,25 @@ app.MapGet("/{id}", (int id, StarWarsContext db) =>
     return starship;
 });
 
+app.MapDelete("/{id}", (int id, StarWarsContext db) =>
+{
+    Starship? starship = db.Starships.Find(id);
+    db.Remove(starship);
+    db.SaveChanges();
+
+    return "Successfully Deleted";
+});
+
+app.MapPost("/{id}", (int id, StarWarsContext db) =>
+{
+    Starship? starship = db.Starships.Find(id);
+    db.Remove(starship);
+    db.SaveChanges();
+
+    return "Successfully Deleted";
+});
+
+
 app.MapGet("/random", (StarWarsContext db) =>
         db.Starships.OrderBy((ss) => Guid.NewGuid()).First()
     )
