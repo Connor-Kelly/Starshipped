@@ -9,7 +9,32 @@
 - Integrate Data from SWApi
 - Fly Starships?
 
-lets get CRUDy
+## Running the application
+
+The best way to run everything is with three commands
+
+1) Run the docker-compose at the rootlevel
+```sh
+> @/Starshipped
+docker compose up --build
+```
+This will run the database and frontend.
+These applications are accessible at `localhost:1433` & `localhost:3000` respectively.
+
+
+2) Init the database connection with EF
+```sh
+> @/Starshipped/backend
+dotnet ef database update
+```
+If you don't have dotnet-ef installed, you can install it via `dotnet tool install --global dotnet-ef`.
+
+3) Run the CSharp Backend
+```sh
+> @/Starshipped/backend
+dotnet run
+```
+This will expose the application at `localhost:5199`
 
 ## Architecture
 
