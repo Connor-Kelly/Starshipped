@@ -14,32 +14,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-// }
-
 builder.Services.AddCors();
 
 builder.Services.AddDbContext<StarWarsContext>(options =>
-    {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-        .EnableSensitiveDataLogging();
-    }
-
-    );
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    .EnableSensitiveDataLogging();
+});
 
 var app = builder.Build();
 
 // ensure that the db is created and seeded 
 using (var scope =
   app.Services.CreateScope())
-    using (var context = scope.ServiceProvider.GetService<StarWarsContext>())
-        context?.Database.EnsureCreated();
+using (var context = scope.ServiceProvider.GetService<StarWarsContext>())
+    context?.Database.EnsureCreated();
 
-app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 
 // leave the CORS wide open, in prod this would need to change
 app.UseCors(builder => builder
