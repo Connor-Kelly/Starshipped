@@ -1,31 +1,39 @@
 
 # version: '3'
 services:
-  backend:
-    container_name: backend
-    build:
-      context: backend
-      dockerfile: Dockerfile
-    ports:
-      - "8080:80"
-    depends_on:
-      - database
+  # backend:
+  #   container_name: backend
+  #   build:
+  #     context: backend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5119:5119"
+  #   networks:
+  #     - db_network
+    # depends_on:
+    #   - database
     # environment:
     #   ConnectionStrings__DefaultConnection: "Host=db;Database=postgres;Username=postgres;Password=postgres"
   database:
+    container_name: database
     build:
       context: database
       dockerfile: Dockerfile
     ports:
       - "1433:1433"
-    
+    networks:
+      - db_network
+      
   frontend:
+    container_name: frontend
     build:
       context: frontend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
 
+networks:
+  db_network:
 
 volumes:
   pgdata: {}
