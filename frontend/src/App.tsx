@@ -9,6 +9,7 @@ import { Card } from './components/ui/card';
 import { Spinner } from './components/ui/spinner';
 import { SidebarProvider, SidebarTrigger } from './components/ui/sidebar';
 import { ProfileSidebar } from './components/profile-sidebar';
+import { Navbar } from '@/components/navbar';
 
 function App() {
 	const [fields, setFields] = useState<string[]>(['', '', '']);
@@ -25,7 +26,8 @@ function App() {
 
 	return (
 		<ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-				<div className='min-h-screen flex items-center justify-center p-4'>
+				<Navbar />
+				<div className=' flex items-center justify-center p-4 my-8'>
 					{starship ? (
 						<StarshipCard starship={starship} />
 					) : (
