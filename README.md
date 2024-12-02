@@ -1,6 +1,7 @@
 
 # Starshipped
 
+
 ## Goals 
 
 - Create __.Net 8__ SPA API
@@ -36,6 +37,8 @@ dotnet run
 ```
 This will expose the application at `localhost:5199`
 
+![frontpage](images/image1.png)
+
 ## Architecture
 
 ### Backend (minimal .Net WebApi)
@@ -43,9 +46,14 @@ I'm not a huge fan of all the magic that C# goes to at scale, even though in mos
 As such, I decided to use the minimal webapi that comes with `dotnet new webapi`. This scaffolds an extremely
 spartan starting point in the Program.cs toplevel. Because this application will be very basic, this works great.
 
+In the future, there is a lot more architecture work to be done here. Rather than adding all the endpoints,
+there should be individual controllers for the endpoints, each of which use the declarative controller syntax. 
+Also, there should be some work to be done on helping to architect the database at scale.
+
 ### Database (SQL Server)
 It's been a minute since I've setup a database, and because I'm running this on my linux machine, containerizing
-the database with Docker is my best and only option for making this work quickly and effectively.
+the database with Docker is my best and only option for making this work quickly and effectively. This portion of 
+the code is both the simplest to set up, and the easiest to move to any other db application.
 
 ### Frontend (React)
 From the few different frontend frameworks / tooling setups, Vite was the simplest and least tempermental. 
@@ -68,3 +76,5 @@ I used ChatGPT, this was mainly for generating dockerfiles, getting some fronten
 for generating a fixed global tailwind css theme. For initial setup on the Frontend UI, I used [V0_Dev](https://v0.dev) 
 which is a chat app that can generate React UI code. It's not for making anything complicated, but more to give a good
 starting point for a ui.
+
+
