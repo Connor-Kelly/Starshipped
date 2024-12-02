@@ -28,15 +28,6 @@ export function NewStarshipCard() {
 								onChange={(val) => setFields({ ...fields, name: val.target.value })}
 							/>
 						</div>
-						{/* <div>
-							<Label>Id</Label>
-							<Input
-                                value={fields.id}
-                                required
-								placeholder={`id`}
-								onChange={(val) => setFields({ ...fields, id: val.target.value })}
-							/>
-						</div> */}
 					</div>
 				</CardTitle>
 			</CardHeader>
@@ -62,8 +53,9 @@ export function NewStarshipCard() {
 			</CardContent>
 			<CardFooter className='justify-between'>
 				<div></div>
-				<div className='justify-between flex'>
+				<div className='justify-between flex space-x-2'>
 					<Button
+						className='rounded'
 						onClick={() => {
 							navigate('/');
 						}}
@@ -71,6 +63,7 @@ export function NewStarshipCard() {
 						Cancel
 					</Button>
 					<Button
+						className='rounded'
 						onClick={() => {
 							axios.put(`http://localhost:5119/${fields.id}`, fields).then((response) => {
 								alert('Starship updated');

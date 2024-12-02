@@ -28,10 +28,14 @@ export function EmptyStarshipCard() {
 			</CardContent>
 			<CardFooter className='justify-between'>
 				<div>
-					<Button disabled>Delete</Button>
+					<Button className='rounded' disabled>
+						Delete
+					</Button>
 				</div>
 				<div className='justify-between flex'>
-					<Button disabled>Save</Button>
+					<Button className='rounded' disabled>
+						Save
+					</Button>
 				</div>
 			</CardFooter>
 		</Card>
