@@ -8,10 +8,10 @@ IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'starwars')
 GO
 
 -- Create the database
-CREATE DATABASE starwars;
-GO
-USE starwars;
-GO
+-- CREATE DATABASE starwars;
+-- GO
+-- USE starwars;
+-- GO
 
 -- Table 'UserData'
 IF OBJECT_ID('UserData', 'U') IS NOT NULL
