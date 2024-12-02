@@ -12,9 +12,20 @@
 
 ## Running the application
 
-The best way to run everything is with three commands
+The entirety of this project should run on a single command:
+```sh
+> @/Starshipped
+docker compose up --build
+```
 
-1) Run the docker-compose at the rootlevel
+This will build and scaffold 3 services on your local device.
+- Frontend @ http://localhost:3000
+- Database @ http://localhost:1433
+- Backend  @ http://localhost:5199
+
+<!-- The best way to run everything is with three commands -->
+
+<!-- 1) Run the docker-compose at the rootlevel
 ```sh
 > @/Starshipped
 docker compose up --build
@@ -33,9 +44,10 @@ If you don't have dotnet-ef installed, you can install it via `dotnet tool insta
 3) Run the CSharp Backend
 ```sh
 > @/Starshipped/backend
-dotnet run
-```
-This will expose the application at `localhost:5199`
+dotnet run -->
+
+<!-- ``` -->
+<!-- This will expose the application at `localhost:5199` -->
 
 ![frontpage](images/image1.png)
 
