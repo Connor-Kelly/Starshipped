@@ -35,14 +35,14 @@ namespace Swapi.Models
         {
             get; set;
         }
-        public int SwapiID
-        {
-            get
-            {
-                return int.Parse(URL.Split("/").ElementAt(URL.Split("/").Length - 2));
-            }
-            set { }
-        }
+        // public int SwapiID
+        // {
+        //     get
+        //     {
+        //         return int.Parse(URL.Split("/").ElementAt(URL.Split("/").Length - 2));
+        //     }
+        //     set { }
+        // }
 
         public string URL { get; set; }
         public string? name { get; set; }
